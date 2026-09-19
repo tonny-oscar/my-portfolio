@@ -1,9 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import afriTrimImage from './assets/images/AfriTrimlogo.png'; 
-import petPalImage from './assets/images/landing.jpg';
 import inventaImage from './assets/images/apple-touch-icon.png';
-import memoryAppImage from './assets/images/parrotlan.jpg';
 import Navbar from "./Navbar";
 
 const Portfolio = () => {
@@ -14,20 +11,65 @@ const Portfolio = () => {
 
   const staggerVariants = {
     hidden: {},
-    visible: { 
-      transition: { 
-        staggerChildren: 0.3 
+    visible: {
+      transition: {
+        staggerChildren: 0.3
       }
     }
   };
 
+  const projects = [
+    {
+      name: "Inventa",
+      github: "https://github.com/tonny-oscar/inventa-Project-",
+      live: "https://inventa-project.vercel.app",
+      image: inventaImage
+    },
+    {
+      name: "OTPGuard",
+      description: "OTP generation and verification tool, built as an installable PWA.",
+      github: "",
+      live: "https://otpguard-1.onrender.com/"
+    },
+    {
+      name: "ShulePoa",
+      description: "School management platform used by schools across Kenya.",
+      github: "",
+      live: "https://shulepoa.app/"
+    },
+    {
+      name: "Tari Electra",
+      description: "Product site and platform for Tari Africa's energy-tech venture.",
+      github: "",
+      live: "https://tarielectra.africa/"
+    },
+    {
+      name: "CNM GlobTrek",
+      description: "Responsive marketing site for a travel and logistics business.",
+      github: "",
+      live: "https://cnmglobetrek.co.ke/"
+    },
+    {
+      name: "Tari Africa",
+      description: "Group site for the Tari Africa ecosystem.",
+      github: "",
+      live: "https://tari.africa/"
+    },
+    {
+      name: "Eranova Technologies",
+      description: "Company site for Eranova Technologies, backed by a REST API content layer.",
+      github: "",
+      live: "https://www.eranovatechnologies.com/"
+    }
+  ];
+
   return (
     <div className="bg-black text-white min-h-screen p-6">
       <Navbar />
-      
+
       {/* Hero Section */}
-      <header className="text-center py-10" id="about">
-        <motion.h1 
+      <header className="text-center py-10" id="hero">
+        <motion.h1
           className="text-5xl font-bold text-gold-500"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -35,7 +77,7 @@ const Portfolio = () => {
         >
           Tonny Kipkemoi Bett
         </motion.h1>
-        <motion.p 
+        <motion.p
           className="text-xl text-gray-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -74,11 +116,10 @@ const Portfolio = () => {
           transition={{ duration: 1, delay: 1.5 }}
         >
           My journey in software development has been shaped by working on
-          impactful projects such as AfriTrim, PetPal, Inventa, and a Budget
-          Tracker, along with hands-on experience at NCPB, where I honed my
-          problem-solving and analytical skills. I thrive on tackling
-          challenges, learning new technologies, and turning ideas into
-          reality.
+          impactful projects such as Inventa, ShulePoa, and Tari Electra,
+          along with hands-on experience across backend and frontend
+          engineering. I thrive on tackling challenges, learning new
+          technologies, and turning ideas into reality.
         </motion.p>
       </section>
 
@@ -98,53 +139,43 @@ const Portfolio = () => {
           initial="hidden"
           animate="visible"
         >
-          {[
-            {
-              name: "AfriTrim",
-              github: "https://github.com/tonny-oscar/AfriTrim",
-              live: "https://afri-trim.vercel.app",
-              image: afriTrimImage
-            },
-            {
-              name: "PetPal",
-              github: "https://github.com/tonny-oscar/pet-pal",
-              live: "https://project-petpal.vercel.app",
-              image: petPalImage
-            },
-            {
-              name: "Inventa",
-              github: "https://github.com/tonny-oscar/inventa-Project-",
-              live: "https://inventa-project.vercel.app",
-              image: inventaImage
-            },
-            {
-              name: "Memory App",
-              github: "https://github.com/tonny-oscar/memory",
-              live: "",
-              image: memoryAppImage
-            }
-          ].map((project, index) => (
+          {projects.map((project, index) => (
             <motion.li
               key={index}
               className="bg-gray-800 p-4 rounded-lg shadow-lg"
               variants={projectVariants}
             >
               <motion.h3 className="text-xl font-semibold text-gold-500">{project.name}</motion.h3>
+
               <motion.div className="flex justify-center mt-4">
-                <motion.img
-                  src={project.image}
-                  alt={project.name}
-                  className="w-32 h-32 object-cover rounded-full border-4 border-gold-500 shadow-xl transform transition-transform duration-300 hover:scale-105"
-                  whileHover={{ scale: 1.1 }}
-                />
+                {project.image ? (
+                  <motion.img
+                    src={project.image}
+                    alt={project.name}
+                    className="w-32 h-32 object-cover rounded-full border-4 border-gold-500 shadow-xl transform transition-transform duration-300 hover:scale-105"
+                    whileHover={{ scale: 1.1 }}
+                  />
+                ) : (
+                  <motion.div
+                    className="w-32 h-32 flex items-center justify-center rounded-full border-4 border-gold-500 bg-gray-900 text-gold-500 text-3xl font-bold shadow-xl transform transition-transform duration-300 hover:scale-105"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    {project.name.charAt(0)}
+                  </motion.div>
+                )}
               </motion.div>
+
+              {project.description && (
+                <p className="text-gray-400 text-sm mt-3">{project.description}</p>
+              )}
+
               <div className="mt-4">
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-blue-400">GitHub</a>
+                {project.github && (
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-blue-400">GitHub</a>
+                )}
+                {project.github && project.live && " | "}
                 {project.live && (
-                  <>
-                    {" | "}
-                    <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-green-400">Live Demo</a>
-                  </>
+                  <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-green-400">Live Demo</a>
                 )}
               </div>
             </motion.li>
@@ -162,7 +193,7 @@ const Portfolio = () => {
         >
           Contact
         </motion.h2>
-        <motion.p 
+        <motion.p
           className="text-gray-300"
           whileInView={{ opacity: 1 }}
           initial={{ opacity: 0 }}
@@ -170,7 +201,7 @@ const Portfolio = () => {
         >
           Email: <a href="mailto:betttonny26@gmail.com" className="text-blue-400">betttonny26@gmail.com</a>
         </motion.p>
-        <motion.p 
+        <motion.p
           className="text-gray-300"
           whileInView={{ opacity: 1 }}
           initial={{ opacity: 0 }}
@@ -178,7 +209,7 @@ const Portfolio = () => {
         >
           GitHub: <a href="https://github.com/tonny-oscar" target="_blank" rel="noopener noreferrer" className="text-blue-400">tonny-oscar</a>
         </motion.p>
-        <motion.p 
+        <motion.p
           className="text-gray-300"
           whileInView={{ opacity: 1 }}
           initial={{ opacity: 0 }}
